@@ -8,6 +8,9 @@ public class Metodos implements Serializable {
     String enderecoChave = "/home/marcos/Documentos/pratica3/Trabalhos/Chaves.bin";
     String enderecoProfessor = "/home/marcos/Documentos/pratica3/Trabalhos/Professor.bin";
     String enderecoReserva = "/home/marcos/Documentos/pratica3/Trabalhos/Reserva.bin";
+
+    ArrayList<Reserva> listareserva = new ArrayList();
+
     Scanner scan = new Scanner(System.in);
     int codProf, codRes = 0;
 
@@ -126,18 +129,19 @@ public class Metodos implements Serializable {
         System.out.println("");
         System.out.println("=======================================");
     }
-    
-    public void CadastraChave (ArrayList<Chave> listachave,int codChave, int numLab){
-        Chave chave = new Chave (codChave, numLab);
+
+    public void CadastraChave(ArrayList<Chave> listachave, int codChave, int numLab) {
+        Chave chave = new Chave(codChave, numLab);
         listachave.add(chave);
         ControleChave.gravamentoArquivo(listachave, enderecoChave);
     }
-    public void ExluirChave (ArrayList<Chave> listachave, int codChave){
+
+    public void ExluirChave(ArrayList<Chave> listachave, int codChave) {
         listachave.remove(retornaIndiceChave(codChave, listachave));
         ControleChave.gravamentoArquivo(listachave, enderecoChave);
     }
-    
-     public static int retornaIndiceChave(int codigo, ArrayList<Chave> listachave) {
+
+    public static int retornaIndiceChave(int codigo, ArrayList<Chave> listachave) {
         int index = 0;
         for (int i = 0; i < listachave.size(); i++) {
             if (listachave.get(i).getCodChave() == codigo) {
@@ -146,16 +150,92 @@ public class Metodos implements Serializable {
         }
         return index;
     }
-    
-    public void ImprimeChave (ArrayList<Chave> listachave){
+
+    public void ImprimeChave(ArrayList<Chave> listachave) {
         listachave = ControleChave.leituramentoArquivo(listachave, enderecoChave);
-        for (Chave chav :listachave){
-            System.out.println("Laboratoio: "+ chav.getNumLab());
-            System.out.println("Codigo chave: "+ chav.getCodChave());
+        for (Chave chav : listachave) {
+            System.out.println("Laboratoio: " + chav.getNumLab());
+            System.out.println("Codigo chave: " + chav.getCodChave());
             System.out.println("-----------------");
             System.out.println("");
         }
-        
+
+    }
+
+    public void MenuReserva() {
+        System.out.println("=======================================");
+        System.out.println("Menu reservas de chave ");
+        System.out.println("=======================================");
+        System.out.println("Informe uma opção de acordo com o menu ");
+        System.out.println("Digite 1 para cadastrar uma reserva de chave ");
+        System.out.println("Digite 2 para excluir uma reserva de chave ");
+        System.out.println("Digite 3 para imprimir todas as resevas");
+        System.out.println("");
+        System.out.println("Digite 0 para sair");
+        System.out.println("");
+        System.out.println("=======================================");
+    }
+
+    public void CadastroReserva(Professor professor, Chave chave, int data, int hora) {
+        int codProf, codChave;
+        codProf = professor.getCodProf();
+        codChave = chave.getCodChave();
+        Reserva reserva = new Reserva(codRes, codChave, data, hora);
+        String enderecoAr;
+        enderecoAr = "/home/marcos/Documentos/pratica3/Trabalhos" + professor.getNome() + professor.getCodProf() + ".bin";
+        listareserva = ControleChave.leituramentoArquivo(listareserva, enderecoAr);
+        listareserva.add(reserva);
+        listareserva = ControleChave.gravamentoArquivo(listareserva, enderecoAr);
+    }
+
+    public void ExcluiReserva(Professor professor) {
+        String enderecoAr;
+        enderecoAr = "/home/marcos/Documentos/pratica3/Trabalhos" + professor.getNome() + professor.getCodProf() + ".bin";
+        listareserva = ControleChave.leituramentoArquivo(listareserva, enderecoAr);
+        for (Reserva res : listareserva) {
+            System.out.println("Codigo da reserva " + res.getCodRes());
+        }
+        System.out.println("=======================================");
+        System.out.println("Informe o codigo da reserva a ser excluido");
+        int codRes = scan.nextInt();
+        scan.nextLine();
+        listareserva.remove(retornaIndiceReserva(codRes, listareserva));
+        listareserva = ControleChave.gravamentoArquivo(listareserva, enderecoAr);
+    }
+
+    public static int retornaIndiceReserva(int codigo, ArrayList<Reserva> listareserva) {
+        int index = 0;
+        for (int i = 0; i < listareserva.size(); i++) {
+            if (listareserva.get(i).getCodChave() == codigo) {
+                index = i;
+            }
+        }
+        return index;
+    }
+
+    public void HistoricoReserva(ArrayList<Professor> listaprofessor, int codigo) {
+        Professor professor = new Professor();
+        professor = retornaProfessor(listaprofessor, codigo);
+        String enderecoAr;
+        enderecoAr = "/home/marcos/Documentos/pratica3/Trabalhos" + professor.getNome() + professor.getCodProf() + ".bin";
+        listareserva.clear();
+        listareserva = ControleChave.leituramentoArquivo(listareserva, enderecoAr);
+        for (Reserva rev : listareserva) {
+            System.out.println("Codigo da reserva: "+ rev.getCodRes());
+            System.out.println("Dia reservado: "+ rev.getData());
+            System.out.println("Hora da reserva: "+ rev.getHora());
+            System.out.println("--------------------------");
+            
+        }
+
+    }
+
+    public Professor retornaProfessor(ArrayList<Professor> listaprofessor, int codigo) {
+        listaprofessor = ControleChave.leituramentoArquivo(listaprofessor, enderecoChave);
+        int indice = retornaIndiceProfessor(codigo, listaprofessor);
+        Professor professor = new Professor();
+        professor = listaprofessor.get(indice);
+        return professor;
     }
 
 }

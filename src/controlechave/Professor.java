@@ -1,11 +1,16 @@
 package controlechave;
+
 import java.util.*;
 import java.io.*;
 
-public class Professor implements Serializable{
+public class Professor implements Serializable {
+
     private int CodProf;
     private String nome;
     private String disciplina;
+
+    Professor() {
+    }
 
     public Professor(int CodProf, String nome, String disciplina) {
         this.CodProf = CodProf;
@@ -36,6 +41,5 @@ public class Professor implements Serializable{
     public void setDisciplina(String disciplina) {
         this.disciplina = disciplina;
     }
-    
-    
+
 }

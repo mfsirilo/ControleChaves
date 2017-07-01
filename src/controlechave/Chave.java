@@ -8,6 +8,9 @@ public class Chave implements Serializable {
     private int codChave;
     private int numLab;
 
+    Chave() {
+    }
+
     public Chave(int codChave, int numLab) {
         this.codChave = codChave;
         this.numLab = numLab;

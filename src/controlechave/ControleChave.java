@@ -37,7 +37,6 @@ public class ControleChave {
 
         ArrayList<Professor> listaprof = new ArrayList();
         ArrayList<Chave> listachave = new ArrayList();
-        ArrayList<Reserva> listareserva = new ArrayList();
 
         Metodos metodo = new Metodos();
 
@@ -126,7 +125,7 @@ public class ControleChave {
                                 System.out.println("=======================================");
                                 System.out.println("Chave excluida com sucesso");
                                 System.out.println("=======================================");
-                                
+
                                 break;
 
                             case "3":
@@ -148,8 +147,63 @@ public class ControleChave {
                         opcao2 = scan.nextLine();
                     }
 
-                    metodo.MenuPrincipal();
-                    opcao1 = scan.nextLine();
+                case "3":
+                    metodo.MenuReserva();
+                    opcao2 = scan.nextLine();
+                    while (!(opcao2).equals("0")) {
+                        switch (opcao2) {
+
+                            case "1":
+                                metodo.limparTela();
+                                leituramentoArquivo(listaprof, metodo.enderecoProfessor);
+                                metodo.ImprimeProf(listaprof, 0);
+                                System.out.println("Infome o codigo do professor");
+                                int codigo = scan.nextInt();
+                                scan.nextLine();
+                                Professor auxprof = new Professor();
+                                auxprof = listaprof.get(Metodos.retornaIndiceProfessor(codigo, listaprof));
+                                metodo.limparTela();
+                                leituramentoArquivo(listachave, metodo.enderecoChave);
+                                metodo.ImprimeChave(listachave);
+                                System.out.println("informe o codigo da chave");
+                                codigo = scan.nextInt();
+                                scan.nextLine();
+                                Chave chave = new Chave();
+                                chave = listachave.get(Metodos.retornaIndiceChave(codigo, listachave));
+                                System.out.println("Informe o dia da semana");
+                                int data = scan.nextInt();
+                                scan.nextLine();
+                                System.out.println("Infome a hora ");
+                                int hora = scan.nextInt();
+                                scan.nextLine();
+                                metodo.CadastroReserva(auxprof, chave, data, hora);
+                                break;
+
+                            case "2":
+                                metodo.limparTela();
+                                metodo.ImprimeProf(listaprof, 0);
+                                break;
+
+                            case "3":
+                                metodo.limparTela();
+                                System.out.println("=======================================");
+                                System.out.println("Lista de professores");
+                                System.out.println("=======================================");
+                                metodo.ImprimeProf(listaprof, 0);
+                                System.out.println("Informe o codigo do professor");
+                                codigo = scan.nextInt();
+                                System.out.println("=======================================");
+                                System.out.println("Histórico de Voos por cliente");
+                                System.out.println("=======================================");
+                                metodo.HistoricoReserva(listaprof, codigo);
+                                System.out.println("");
+                                System.out.println("FIM DA LISTA");
+                                System.out.println("");
+                                break;
+
+                        }
+                    }
+
             }
 
         }
