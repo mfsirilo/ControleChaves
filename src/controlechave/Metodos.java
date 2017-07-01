@@ -225,11 +225,8 @@ public class Metodos implements Serializable {
             System.out.println("Dia reservado: "+ rev.getData());
             System.out.println("Hora da reserva: "+ rev.getHora());
             System.out.println("--------------------------");
-            
         }
-
     }
-
     public Professor retornaProfessor(ArrayList<Professor> listaprofessor, int codigo) {
         listaprofessor = ControleChave.leituramentoArquivo(listaprofessor, enderecoChave);
         int indice = retornaIndiceProfessor(codigo, listaprofessor);
@@ -237,5 +234,4 @@ public class Metodos implements Serializable {
         professor = listaprofessor.get(indice);
         return professor;
     }
-
 }
