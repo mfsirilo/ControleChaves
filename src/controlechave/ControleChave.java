@@ -163,14 +163,10 @@ public class ControleChave {
                                 leituramentoArquivo(listaprof, metodo.enderecoProfessor);
                                 metodo.ImprimeProf(listaprof, 0);
                                 System.out.println("Infome o codigo do professor");
-                                
-                                int codigo = scan.nextInt();scan.nextLine();
-                                
+                                int codigo = scan.nextInt();                               
                                 Professor auxprof = new Professor();
-                                
                                 auxprof = listaprof.get(Metodos.retornaIndiceProfessor(codigo, listaprof));
                                 metodo.limparTela();
-                                
                                 leituramentoArquivo(listachave,metodo.enderecoChave);
                                 metodo.ImprimeChave(listachave);
                                 System.out.println("informe o codigo da chave");
