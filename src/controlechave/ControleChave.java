@@ -167,7 +167,7 @@ public class ControleChave {
                                 Professor auxprof = new Professor();
                                 auxprof = listaprof.get(Metodos.retornaIndiceProfessor(codigo, listaprof));
                                 metodo.limparTela();
-                                leituramentoArquivo(listachave,metodo.enderecoChave);
+                                
                                 listachave = leituramentoArquivo(listachave, metodo.enderecoChave);
                                 metodo.ImprimeChave(listachave);
                                 System.out.println("informe o codigo da chave");
