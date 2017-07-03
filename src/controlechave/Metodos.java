@@ -8,7 +8,8 @@ public class Metodos implements Serializable {
     String enderecoChave = "/home/marcos/Documentos/pratica3/Trabalhos/Chaves.bin";
     String enderecoProfessor = "/home/marcos/Documentos/pratica3/Trabalhos/Professor.bin";
     String enderecoReserva = "/home/marcos/Documentos/pratica3/Trabalhos/Reserva.bin";
-
+    
+  
     ArrayList<Reserva> listareserva = new ArrayList();
 
     Scanner scan = new Scanner(System.in);
@@ -75,10 +76,11 @@ public class Metodos implements Serializable {
     public void EcluirProf(ArrayList<Professor> listaprof, int codProf) {
         listaprof = ControleChave.leituramentoArquivo(listaprof, enderecoProfessor);
         listaprof.remove(retornaIndiceProfessor(codProf, listaprof));
+        ControleChave.gravamentoArquivo(listaprof, enderecoProfessor);
     }
 
     public static int retornaIndiceProfessor(int codigo, ArrayList<Professor> listaprof) {
-        int index = 0;
+        int index = -1;
         for (int i = 0; i < listaprof.size(); i++) {
             if (listaprof.get(i).getCodProf() == codigo) {
                 index = i;
@@ -154,7 +156,7 @@ public class Metodos implements Serializable {
     public void ImprimeChave(ArrayList<Chave> listachave) {
         listachave = ControleChave.leituramentoArquivo(listachave, enderecoChave);
         for (Chave chav : listachave) {
-            System.out.println("Laboratoio: " + chav.getNumLab());
+            System.out.println("Laboratório: " + chav.getNumLab());
             System.out.println("Codigo chave: " + chav.getCodChave());
             System.out.println("-----------------");
             System.out.println("");
@@ -182,7 +184,8 @@ public class Metodos implements Serializable {
         codChave = chave.getCodChave();
         Reserva reserva = new Reserva(codRes, codChave, data, hora);
         String enderecoAr;
-        enderecoAr = "/home/marcos/Documentos/pratica3/Trabalhos/" + professor.getNome() + professor.getCodProf() + ".bin";
+        //enderecoAr = "/home/marcos/Documentos/pratica3/Trabalhos/" + professor.getNome() + professor.getCodProf() + ".bin";
+        enderecoAr = "D:\\Facul\\ControleChave\\" + professor.getNome() + professor.getCodProf() + ".bin";
         listareserva = ControleChave.leituramentoArquivo(listareserva, enderecoAr);
         listareserva.add(reserva);
         listareserva = ControleChave.gravamentoArquivo(listareserva, enderecoAr);
@@ -190,7 +193,8 @@ public class Metodos implements Serializable {
 
     public void ExcluiReserva(Professor professor) {
         String enderecoAr;
-        enderecoAr = "/home/marcos/Documentos/pratica3/Trabalhos/" + professor.getNome() + professor.getCodProf() + ".bin";
+        //enderecoAr = "/home/marcos/Documentos/pratica3/Trabalhos/" + professor.getNome() + professor.getCodProf() + ".bin";
+        enderecoAr = "D:\\Facul\\ControleChave\\" + professor.getNome() + professor.getCodProf() + ".bin";
         listareserva = ControleChave.leituramentoArquivo(listareserva, enderecoAr);
         for (Reserva res : listareserva) {
             System.out.println("Codigo da reserva " + res.getCodRes());
@@ -213,11 +217,21 @@ public class Metodos implements Serializable {
         return index;
     }
 
+    public Professor retornaProfessor(ArrayList<Professor> listaprofessor, int codigo) {
+        listaprofessor = ControleChave.leituramentoArquivo(listaprofessor, enderecoProfessor);
+        int indice = retornaIndiceProfessor(codigo, listaprofessor);
+        Professor professor = new Professor();
+        professor = (Professor)listaprofessor.get(indice);
+        return professor;
+    }
     public void HistoricoReserva(ArrayList<Professor> listaprofessor, int codigo) {
+        listaprofessor = ControleChave.leituramentoArquivo(listaprofessor, enderecoProfessor);
         Professor professor = new Professor();
         professor = retornaProfessor(listaprofessor, codigo);
         String enderecoAr;
-        enderecoAr = "/home/marcos/Documentos/pratica3/Trabalhos/" + professor.getNome() + professor.getCodProf() + ".bin";
+       
+        enderecoAr = "D:\\Facul\\ControleChave\\" + professor.getNome() + professor.getCodProf() + ".bin";
+        
         listareserva.clear();
         listareserva = ControleChave.leituramentoArquivo(listareserva, enderecoAr);
         for (Reserva rev : listareserva) {
@@ -228,11 +242,4 @@ public class Metodos implements Serializable {
         }
     }
 
-    public Professor retornaProfessor(ArrayList<Professor> listaprofessor, int codigo) {
-        listaprofessor = ControleChave.leituramentoArquivo(listaprofessor, enderecoChave);
-        int indice = retornaIndiceProfessor(codigo, listaprofessor);
-        Professor professor = new Professor();
-        professor = listaprofessor.get(indice);
-        return professor;
-    }
 }
