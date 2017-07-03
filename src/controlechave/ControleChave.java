@@ -81,7 +81,7 @@ public class ControleChave {
                                 metodo.limparTela();
 
                                 System.out.println("=======================================");
-                                System.out.println("Lista de todos os clientes");
+                                System.out.println("Lista de todos os professores");
                                 System.out.println("=======================================");
                                 metodo.ImprimeProf(listaprof, 0);
                                 System.out.println("----------------------------------");
@@ -102,7 +102,7 @@ public class ControleChave {
                             case "1":
                                 metodo.limparTela();
                                 System.out.println("=======================================");
-                                System.out.println("Cadastro de professor");
+                                System.out.println("Cadastro de Chaves");
                                 System.out.println("=======================================");
                                 System.out.println("Informe o número do laboratorio");
                                 int numLab = scan.nextInt();
@@ -156,11 +156,11 @@ public class ControleChave {
                     opcao2 = scan.nextLine();
                     while (!(opcao2).equals("0")) {
                         switch (opcao2) {
-
+                            
                             case "1":
                                 
                                 metodo.limparTela();
-                                leituramentoArquivo(listaprof, metodo.enderecoProfessor);
+                                listaprof = leituramentoArquivo(listaprof, metodo.enderecoProfessor);
                                 metodo.ImprimeProf(listaprof, 0);
                                 System.out.println("Infome o codigo do professor");
                                 int codigo = scan.nextInt();                               
@@ -168,6 +168,7 @@ public class ControleChave {
                                 auxprof = listaprof.get(Metodos.retornaIndiceProfessor(codigo, listaprof));
                                 metodo.limparTela();
                                 leituramentoArquivo(listachave,metodo.enderecoChave);
+                                listachave = leituramentoArquivo(listachave, metodo.enderecoChave);
                                 metodo.ImprimeChave(listachave);
                                 System.out.println("informe o codigo da chave");
                                 codigo = scan.nextInt();
@@ -185,11 +186,13 @@ public class ControleChave {
                                 break;
 
                             case "2":
+                                listaprof = leituramentoArquivo(listaprof, metodo.enderecoProfessor);
                                 metodo.limparTela();
                                 metodo.ImprimeProf(listaprof, 0);
                                 break;
 
                             case "3":
+                                listaprof = leituramentoArquivo(listaprof, metodo.enderecoProfessor);
                                 metodo.limparTela();
                                 System.out.println("=======================================");
                                 System.out.println("Lista de professores");
@@ -198,7 +201,7 @@ public class ControleChave {
                                 System.out.println("Informe o codigo do professor");
                                 codigo = scan.nextInt();
                                 System.out.println("=======================================");
-                                System.out.println("Histórico de Voos por cliente");
+                                System.out.println("Histórico de reservas por professor");
                                 System.out.println("=======================================");
                                 metodo.HistoricoReserva(listaprof, codigo);
                                 System.out.println("");
