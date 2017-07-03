@@ -42,7 +42,6 @@ public class ControleChave {
 
         String opcao1, opcao2;
         metodo.MenuPrincipal();
-
         opcao1 = scan.nextLine();
         while (!(opcao1).equals("0")) {
             switch (opcao1) {
@@ -91,6 +90,9 @@ public class ControleChave {
                         metodo.MenuProfessor();
                         opcao2 = scan.nextLine();
                     }
+                    metodo.MenuPrincipal();
+                    opcao1 = scan.nextLine();
+                    break;
                 case "2":
                     metodo.MenuChave();
                     opcao2 = scan.nextLine();
@@ -146,7 +148,9 @@ public class ControleChave {
                         metodo.MenuChave();
                         opcao2 = scan.nextLine();
                     }
-
+                    metodo.MenuPrincipal();
+                    opcao1 = scan.nextLine();
+                    break;
                 case "3":
                     metodo.MenuReserva();
                     opcao2 = scan.nextLine();
@@ -154,16 +158,20 @@ public class ControleChave {
                         switch (opcao2) {
 
                             case "1":
+                                
                                 metodo.limparTela();
                                 leituramentoArquivo(listaprof, metodo.enderecoProfessor);
                                 metodo.ImprimeProf(listaprof, 0);
                                 System.out.println("Infome o codigo do professor");
-                                int codigo = scan.nextInt();
-                                scan.nextLine();
+                                
+                                int codigo = scan.nextInt();scan.nextLine();
+                                
                                 Professor auxprof = new Professor();
+                                
                                 auxprof = listaprof.get(Metodos.retornaIndiceProfessor(codigo, listaprof));
                                 metodo.limparTela();
-                                leituramentoArquivo(listachave, metodo.enderecoChave);
+                                
+                                leituramentoArquivo(listachave,metodo.enderecoChave);
                                 metodo.ImprimeChave(listachave);
                                 System.out.println("informe o codigo da chave");
                                 codigo = scan.nextInt();
@@ -177,6 +185,7 @@ public class ControleChave {
                                 int hora = scan.nextInt();
                                 scan.nextLine();
                                 metodo.CadastroReserva(auxprof, chave, data, hora);
+                                
                                 break;
 
                             case "2":
@@ -202,8 +211,12 @@ public class ControleChave {
                                 break;
 
                         }
+                        metodo.MenuReserva();
+                        opcao2 = scan.nextLine();
                     }
-
+                    metodo.MenuPrincipal();
+                    opcao1 = scan.nextLine();
+                    break;
             }
 
         }
